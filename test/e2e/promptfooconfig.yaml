@@ -1,0 +1,50 @@
+description: "BrewBot Agent End-to-End Tests"
+
+providers:
+  - exec:node invoke-agent.js
+
+prompts:
+  - "{{question}}"
+
+tests:
+  # Test 1: Basic beer knowledge
+  - description: "Basic beer question should work"
+    vars:
+      question: "What is beer?"
+    assert:
+      - type: icontains
+        value: "beer"
+      - type: icontains
+        value: "alcoholic"
+
+  # Test 2: IPA brewing question
+  - description: "IPA brewing question should get detailed help"
+    vars:
+      question: "What ingredients do I need to brew an IPA?"
+    assert:
+      - type: contains
+        value: "hops"
+      - type: contains
+        value: "malt"
+      - type: not-contains
+        value: "Sorry, I am a BrewBot"
+
+  # Test 3: Equipment question
+  - description: "Brewing equipment question should work"
+    vars:
+      question: "What equipment do I need to start brewing?"
+    assert:
+      - type: contains
+        value: "fermenter"
+      - type: not-contains
+        value: "Sorry"
+
+  # Test 4: Non-brewing question should be rejected
+  - description: "Non-brewing question should be politely rejected"
+    vars:
+      question: "What's the weather like today?"
+    assert:
+      - type: contains
+        value: "Sorry"
+      - type: contains
+        value: "brewing"

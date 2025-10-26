@@ -6,3 +6,9 @@ node_modules
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+# E2E test environment files
+test/e2e/.env
+test/e2e/.promptfoo/
+
+# Promptfoo cache
+.promptfoo/
