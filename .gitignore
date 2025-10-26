@@ -12,3 +12,4 @@ test/e2e/.promptfoo/
 
 # Promptfoo cache
 .promptfoo/
+!test/**/*.js
